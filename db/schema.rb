@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216185539) do
+ActiveRecord::Schema.define(version: 20161216201037) do
+
+  create_table "avarage_flight_pricings", force: :cascade do |t|
+    t.integer  "destination_city_id"
+    t.integer  "origin_city_id"
+    t.integer  "price",               limit: 8
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "avarage_flight_pricings", ["destination_city_id"], name: "index_avarage_flight_pricings_on_destination_city_id"
+  add_index "avarage_flight_pricings", ["origin_city_id"], name: "index_avarage_flight_pricings_on_origin_city_id"
 
   create_table "cities", force: :cascade do |t|
     t.string   "initials"

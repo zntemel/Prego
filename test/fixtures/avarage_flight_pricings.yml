@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  destination_city_id: 
+  origin_city_id: 
+  price: 1
+
+two:
+  destination_city_id: 
+  origin_city_id: 
+  price: 1
