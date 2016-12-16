@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  origin_city_id: 
+  destination_city_id: 
+  flight_date: 
+  quote_datetime: 
+  price: 
+
+two:
+  origin_city_id: 
+  destination_city_id: 
+  flight_date: 
+  quote_datetime: 
+  price: 

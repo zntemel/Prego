@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216201037) do
+ActiveRecord::Schema.define(version: 20161216205335) do
 
   create_table "avarage_flight_pricings", force: :cascade do |t|
     t.integer  "destination_city_id"
@@ -30,5 +30,20 @@ ActiveRecord::Schema.define(version: 20161216201037) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "flights", force: :cascade do |t|
+    t.integer  "origin_city_id"
+    t.integer  "destination_city_id"
+    t.date     "flight_date"
+    t.datetime "quote_datetime"
+    t.integer  "min_price",                 limit: 8
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "avarage_flight_pricing_id"
+  end
+
+  add_index "flights", ["avarage_flight_pricing_id"], name: "index_flights_on_avarage_flight_pricing_id"
+  add_index "flights", ["destination_city_id"], name: "index_flights_on_destination_city_id"
+  add_index "flights", ["origin_city_id"], name: "index_flights_on_origin_city_id"
 
 end
