@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216205335) do
+ActiveRecord::Schema.define(version: 20161217140330) do
 
   create_table "avarage_flight_pricings", force: :cascade do |t|
     t.integer  "destination_city_id"
@@ -31,6 +31,33 @@ ActiveRecord::Schema.define(version: 20161216205335) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "city_pricings", force: :cascade do |t|
+    t.decimal  "value",      precision: 10, scale: 2
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "city_id"
+  end
+
+  add_index "city_pricings", ["city_id"], name: "index_city_pricings_on_city_id"
+
+  create_table "city_ratings", force: :cascade do |t|
+    t.decimal  "value",      precision: 10, scale: 2
+    t.integer  "city_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "city_ratings", ["city_id"], name: "index_city_ratings_on_city_id"
+
+  create_table "city_visit_frequencies", force: :cascade do |t|
+    t.decimal  "value",      precision: 10, scale: 2
+    t.integer  "city_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "city_visit_frequencies", ["city_id"], name: "index_city_visit_frequencies_on_city_id"
+
   create_table "flights", force: :cascade do |t|
     t.integer  "origin_city_id"
     t.integer  "destination_city_id"
@@ -45,5 +72,22 @@ ActiveRecord::Schema.define(version: 20161216205335) do
   add_index "flights", ["avarage_flight_pricing_id"], name: "index_flights_on_avarage_flight_pricing_id"
   add_index "flights", ["destination_city_id"], name: "index_flights_on_destination_city_id"
   add_index "flights", ["origin_city_id"], name: "index_flights_on_origin_city_id"
+
+  create_table "venues", force: :cascade do |t|
+    t.integer  "city_id"
+    t.integer  "city_pricing_id"
+    t.integer  "city_rating_id"
+    t.integer  "city_visit_frequency_id"
+    t.decimal  "pricing"
+    t.decimal  "rating"
+    t.decimal  "visit_frequency"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "venues", ["city_id"], name: "index_venues_on_city_id"
+  add_index "venues", ["city_pricing_id"], name: "index_venues_on_city_pricing_id"
+  add_index "venues", ["city_rating_id"], name: "index_venues_on_city_rating_id"
+  add_index "venues", ["city_visit_frequency_id"], name: "index_venues_on_city_visit_frequency_id"
 
 end
