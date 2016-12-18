@@ -7,9 +7,9 @@ class SkyscannerWrapper
   API_KEY = ENV['SKYSCANNER_API_KEY'] || 'bo859179245265755287837313776552'
 
   # E.g. input: ["LOND", "BERL"]
-  def self.fetch_cities_avarage_pricing(city_ids)
-    city_ids.each do |city_id|
-      city = City.find(city_id)
+  def self.fetch_cities_avarage_pricing(city_initials)
+    city_initials.each do |city_initial|
+      city = City.find_by(initials: city_initial)
 
       get_flights_for(city)
     end

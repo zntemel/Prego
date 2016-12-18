@@ -655,6 +655,7 @@
 
         var http = new XMLHttpRequest();
         var url = "/results";
+
         var params = {
             'eigenVector' : window.eigenVector,
             'cityInitials' : selectedCityInitials
@@ -670,7 +671,7 @@
                 alert(http.responseText);
             }
         }
-        http.send(params);
+        http.send(JSON.stringify(params));
     }
 
     function controlMinActiveCitiesAndConsistency(selectedCities){

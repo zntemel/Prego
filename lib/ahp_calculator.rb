@@ -1,18 +1,24 @@
 class AhpCalculator
-  def self.sort_decisions(city_ids)
-    get_skyscanner_data_for(city_ids)
-    cities = get_city_values(city_ids)
+  def self.sort_decisions(city_initials, eigen_vector)
+    new_eigen_vector = {}
+    new_eigen_vector[:flight_pricing] = eigen_vector["flightPricing"]
+    new_eigen_vector[:city_rating] = eigen_vector["cityRating"]
+    new_eigen_vector[:city_pricing] = eigen_vector["cityPricing"]
+    new_eigen_vector[:visit_frequency] = eigen_vector["visitFrequency"]
+
+    get_skyscanner_data_for(city_initials)
+    cities = get_city_values(city_initials)
 
     cities = normalize(cities)
-    eigen_vector = { flight_pricing: 0.39, city_rating: 0.18, city_pricing: 0.11, visit_frequency: 0.32 }
-    cities = use_with_eigen_vector(cities, eigen_vector)
+    cities = use_with_eigen_vector(cities, new_eigen_vector)
+    return cities
   end
 
-  def self.get_city_values(city_ids)
+  def self.get_city_values(city_initials)
     cities = { }
 
-    city_ids.each do |city_id|
-      city = City.find_by(id: city_id)
+    city_initials.each do |city_initial|
+      city = City.find_by(initials: city_initial)
       cities[city.name] = {
         flight_pricing: (1 / city.avarage_flight_pricings.last.price.to_f).round(5),
         city_rating: city.city_ratings.last.value.to_f,
@@ -68,8 +74,8 @@ class AhpCalculator
     return cities
   end
 
-  def self.get_skyscanner_data_for(city_ids)
-    SkyscannerWrapper.fetch_cities_avarage_pricing(city_ids)
+  def self.get_skyscanner_data_for(city_initials)
+    SkyscannerWrapper.fetch_cities_avarage_pricing(city_initials)
   end
   
 end
