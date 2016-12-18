@@ -4,7 +4,7 @@ class SkyscannerWrapper
   LOCALE = 'tr-TR'
   ORIGIN_PLACE = "ISTA"
   API_URL = 'http://partners.api.skyscanner.net/apiservices/browsegrid/v1.0/'
-  API_KEY = ENV['SKYSCANNER_API_KEY']
+  API_KEY = ENV['SKYSCANNER_API_KEY'] || 'bo859179245265755287837313776552'
 
   # E.g. input: ["LOND", "BERL"]
   def self.fetch_cities_avarage_pricing(city_ids)
