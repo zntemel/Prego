@@ -461,7 +461,7 @@
                         </div>
 
                         <div class="col-md-12">
-                            <a href="#ranked" class="page-scroll btn btn-xl" id="search-criteria-button" style="margin-top: 30px;">Search for me </a>
+                            <a class=" btn btn-xl" id="search-criteria-button" style="margin-top: 30px;">Search for me </a>
                         </div>        
                     </div>
                 </div>
@@ -470,8 +470,8 @@
     </div>
 </section>
 
-<!-- Team Section -->
-<section id="ranked" class="bg-light-gray">
+<!-- Result Section -->
+<section id="ranked-results" class="bg-light-gray" style="display:none;">
     <div class="container">
         <div class="row" >
             <div class="col-lg-12 text-center">
@@ -487,7 +487,8 @@
                         <img src="http://blog.tatilbudur.com/wp-content/uploads/ilk-190.jpg" style=" height: 150px; width: 150px;">
                     </a>
                     <a href="https://www.tripadvisor.com.tr/Tourism-g187147-Paris_Ile_de_France-Vacations.html" style=" color: #000">
-                        <p><b>1-Paris</b></p>
+
+                        <p id="city1"><b>1-Paris</b></p>
                     </a>
                 </div>
                 <div class="col-md-4 text-center">
@@ -495,7 +496,7 @@
                         <img src="https://lonelyplanetimages.imgix.net/mastheads/stock-photo-beautiful-amsterdam-76796579.jpg?sharp=10&vib=20&w=1200" style=" height: 150px; width: 150px;">
                     </a>
                     <a href="https://www.tripadvisor.com.tr/Tourism-g187147-Paris_Ile_de_France-Vacations.html" style=" color: #000">
-                        <p><b>2-Amsterdam</b></p>
+                        <p  id="city2"><b>2-Amsterdam</b></p>
                     </a>
                 </div>
                 <div class="col-md-4 text-center">
@@ -503,7 +504,7 @@
                         <img src="http://image.touristica.com.tr/TourFiles/large/barcelona11_68075.jpg" style=" height: 150px; width: 150px;">
                     </a>
                     <a href="https://www.tripadvisor.com.tr/Tourism-g187147-Paris_Ile_de_France-Vacations.html" style=" color: #000">
-                        <p><b>3-Barselona</b></p>
+                        <p id="city3"><b>3-Barselona</b></p>
                     </a>
                 </div>
                 <div class="col-md-4 text-center">
@@ -511,7 +512,7 @@
                         <img src="https://gezimanya.com/sites/default/files/foto-galeri/gorseller/kapak_30.jpg" style=" height: 150px; width: 150px;">
                     </a>
                     <a href="https://www.tripadvisor.com.tr/Tourism-g187147-Paris_Ile_de_France-Vacations.html" style=" color: #000">
-                        <p><b>4-Berlin</b></p>
+                        <p id="city4"><b>4-Berlin</b></p>
                     </a>
                 </div>
                 <div class="col-md-4 text-center">
@@ -519,7 +520,7 @@
                         <img src="http://www.celebialper.com/wp-content/uploads/prag.jpg" style=" height: 150px; width: 150px;">
                     </a>
                     <a href="https://www.tripadvisor.com.tr/Tourism-g187147-Paris_Ile_de_France-Vacations.html" style=" color: #000">
-                        <p><b>5-Prag</b></p>
+                        <p id="city5"><b>5-Prag</b></p>
                     </a>
                 </div>
                 <div class="col-md-4 text-center">
@@ -527,7 +528,7 @@
                         <img src="http://www.gezilecekyerler.biz/wp-content/uploads/2014/11/Lizbonda-Yap%C4%B1lacak-%C5%9Eeyler.jpg" style=" height: 150px; width: 150px;">
                     </a>
                     <a href="https://www.tripadvisor.com.tr/Tourism-g187147-Paris_Ile_de_France-Vacations.html" style=" color: #000">
-                        <p><b>6-Lizbon</b></p>
+                        <p id="city6"><b>6-Lizbon</b></p>
                     </a>
                 </div>
                 <div class="col-md-4 text-center">
@@ -535,7 +536,7 @@
                         <img src="http://journo.com.tr/wp-content/uploads/2016/05/Rome.jpg" style=" height: 150px; width: 150px;">
                     </a>
                     <a href="https://www.tripadvisor.com.tr/Tourism-g187147-Paris_Ile_de_France-Vacations.html" style=" color: #000">
-                        <p><b>7-Roma</b></p>
+                        <p id="city7"><b>7-Roma</b></p>
                     </a>
                 </div>
 
@@ -626,6 +627,7 @@
     </div>
 </section>
 
+
 <script type="text/javascript">
     var cityButtons = document.getElementsByClassName('citybutton');
     for (var i=0; i<20; i++){
@@ -668,7 +670,18 @@
 
         http.onreadystatechange = function() {//Call a function when the state changes.
             if(http.readyState == 4 && http.status == 200) {
-                alert(http.responseText);
+                document.getElementById('ranked-results').style.display = 'block';
+                var cities = JSON.parse(http.responseText);
+                for(var i = 1; i < 8; i++){
+                    if(cities[i - 1]){
+                        var tempCity = document.getElementById("city" + i);
+                        tempCity.innerHTML = "<b>" + i + "-" + cities[i - 1] + "</b>";
+                        tempCity.style.display = 'block';
+                    } else {
+                        var tempCity = document.getElementById("city" + i);
+                        tempCity.parentNode.parentNode.style.display = 'none';
+                    }
+                }
             }
         }
         http.send(JSON.stringify(params));
@@ -1019,4 +1032,12 @@
         updateSlider6.noUiSlider.on('update', function( values, handle ) {
             updateRankingInfo(values, handle, '6');
         });
+    </script>
+
+    <script type="text/javascript">
+    $('#mainNav').affix({
+        offset: {
+            top: 100
+        }
+    })
     </script>
