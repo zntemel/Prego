@@ -13,16 +13,19 @@
 
 ActiveRecord::Schema.define(version: 20161217193002) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "avarage_flight_pricings", force: :cascade do |t|
-    t.integer  "destination_city_id"
-    t.integer  "origin_city_id"
     t.integer  "price",               limit: 8
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.integer  "destination_city_id"
+    t.integer  "origin_city_id"
   end
 
-  add_index "avarage_flight_pricings", ["destination_city_id"], name: "index_avarage_flight_pricings_on_destination_city_id"
-  add_index "avarage_flight_pricings", ["origin_city_id"], name: "index_avarage_flight_pricings_on_origin_city_id"
+  add_index "avarage_flight_pricings", ["destination_city_id"], name: "index_avarage_flight_pricings_on_destination_city_id", using: :btree
+  add_index "avarage_flight_pricings", ["origin_city_id"], name: "index_avarage_flight_pricings_on_origin_city_id", using: :btree
 
   create_table "cities", force: :cascade do |t|
     t.string   "initials"
@@ -39,7 +42,7 @@ ActiveRecord::Schema.define(version: 20161217193002) do
     t.integer  "city_id"
   end
 
-  add_index "city_pricings", ["city_id"], name: "index_city_pricings_on_city_id"
+  add_index "city_pricings", ["city_id"], name: "index_city_pricings_on_city_id", using: :btree
 
   create_table "city_ratings", force: :cascade do |t|
     t.decimal  "value",      precision: 10, scale: 2
@@ -48,7 +51,7 @@ ActiveRecord::Schema.define(version: 20161217193002) do
     t.datetime "updated_at",                          null: false
   end
 
-  add_index "city_ratings", ["city_id"], name: "index_city_ratings_on_city_id"
+  add_index "city_ratings", ["city_id"], name: "index_city_ratings_on_city_id", using: :btree
 
   create_table "city_visit_frequencies", force: :cascade do |t|
     t.decimal  "value",      precision: 10, scale: 2
@@ -57,22 +60,22 @@ ActiveRecord::Schema.define(version: 20161217193002) do
     t.datetime "updated_at",                          null: false
   end
 
-  add_index "city_visit_frequencies", ["city_id"], name: "index_city_visit_frequencies_on_city_id"
+  add_index "city_visit_frequencies", ["city_id"], name: "index_city_visit_frequencies_on_city_id", using: :btree
 
   create_table "flights", force: :cascade do |t|
-    t.integer  "origin_city_id"
-    t.integer  "destination_city_id"
     t.date     "flight_date"
     t.datetime "quote_datetime"
     t.integer  "min_price",                 limit: 8
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "destination_city_id"
+    t.integer  "origin_city_id"
     t.integer  "avarage_flight_pricing_id"
   end
 
-  add_index "flights", ["avarage_flight_pricing_id"], name: "index_flights_on_avarage_flight_pricing_id"
-  add_index "flights", ["destination_city_id"], name: "index_flights_on_destination_city_id"
-  add_index "flights", ["origin_city_id"], name: "index_flights_on_origin_city_id"
+  add_index "flights", ["avarage_flight_pricing_id"], name: "index_flights_on_avarage_flight_pricing_id", using: :btree
+  add_index "flights", ["destination_city_id"], name: "index_flights_on_destination_city_id", using: :btree
+  add_index "flights", ["origin_city_id"], name: "index_flights_on_origin_city_id", using: :btree
 
   create_table "venues", force: :cascade do |t|
     t.integer  "city_id"
@@ -86,9 +89,21 @@ ActiveRecord::Schema.define(version: 20161217193002) do
     t.datetime "updated_at",              null: false
   end
 
-  add_index "venues", ["city_id"], name: "index_venues_on_city_id"
-  add_index "venues", ["city_pricing_id"], name: "index_venues_on_city_pricing_id"
-  add_index "venues", ["city_rating_id"], name: "index_venues_on_city_rating_id"
-  add_index "venues", ["city_visit_frequency_id"], name: "index_venues_on_city_visit_frequency_id"
+  add_index "venues", ["city_id"], name: "index_venues_on_city_id", using: :btree
+  add_index "venues", ["city_pricing_id"], name: "index_venues_on_city_pricing_id", using: :btree
+  add_index "venues", ["city_rating_id"], name: "index_venues_on_city_rating_id", using: :btree
+  add_index "venues", ["city_visit_frequency_id"], name: "index_venues_on_city_visit_frequency_id", using: :btree
 
+  add_foreign_key "avarage_flight_pricings", "cities", column: "destination_city_id"
+  add_foreign_key "avarage_flight_pricings", "cities", column: "origin_city_id"
+  add_foreign_key "city_pricings", "cities"
+  add_foreign_key "city_ratings", "cities"
+  add_foreign_key "city_visit_frequencies", "cities"
+  add_foreign_key "flights", "avarage_flight_pricings"
+  add_foreign_key "flights", "cities", column: "destination_city_id"
+  add_foreign_key "flights", "cities", column: "origin_city_id"
+  add_foreign_key "venues", "cities"
+  add_foreign_key "venues", "city_pricings"
+  add_foreign_key "venues", "city_ratings"
+  add_foreign_key "venues", "city_visit_frequencies"
 end
