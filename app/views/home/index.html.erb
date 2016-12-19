@@ -100,7 +100,7 @@
         <div class="container">
             <div class="row text-center">
                 <h2 class="section-heading">Cities</h2>
-                <p>Please select maximum 7 city to go</p>
+                <p>Please select minimum 3 maximum 7 city to go</p>
                 <div class="row">
                     <div class="form-group">
                         <div class="items-collection">
@@ -358,7 +358,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading">Criteria</h2>
-                <h3 class="section-subheading text-muted">Please ranked following criterias</h3>
+                <h3 class="section-subheading text-muted">Please ranked following criteria</h3>
                 <div class="sliders">
                     <div class="row">
                         <div class="col-md-2 col-md-offset-1">
@@ -482,61 +482,61 @@
         
         <div class="row">
             <div class="col-md-12">
-                <div class="col-md-4 text-center">
+                <div id="city1" class="col-md-4 text-center">
                     <a href="https://www.tripadvisor.com.tr/Tourism-g187147-Paris_Ile_de_France-Vacations.html">
                         <img src="http://blog.tatilbudur.com/wp-content/uploads/ilk-190.jpg" style=" height: 150px; width: 150px;">
                     </a>
                     <a href="https://www.tripadvisor.com.tr/Tourism-g187147-Paris_Ile_de_France-Vacations.html" style=" color: #000">
 
-                        <p id="city1"><b>1-Paris</b></p>
+                        <p><b>1-Paris</b></p>
                     </a>
                 </div>
-                <div class="col-md-4 text-center">
+                <div id="city2" class="col-md-4 text-center">
                     <a href="">
                         <img src="https://lonelyplanetimages.imgix.net/mastheads/stock-photo-beautiful-amsterdam-76796579.jpg?sharp=10&vib=20&w=1200" style=" height: 150px; width: 150px;">
                     </a>
                     <a href="https://www.tripadvisor.com.tr/Tourism-g187147-Paris_Ile_de_France-Vacations.html" style=" color: #000">
-                        <p  id="city2"><b>2-Amsterdam</b></p>
+                        <p><b>2-Amsterdam</b></p>
                     </a>
                 </div>
-                <div class="col-md-4 text-center">
+                <div id="city3" class="col-md-4 text-center">
                     <a>
                         <img src="http://image.touristica.com.tr/TourFiles/large/barcelona11_68075.jpg" style=" height: 150px; width: 150px;">
                     </a>
                     <a href="https://www.tripadvisor.com.tr/Tourism-g187147-Paris_Ile_de_France-Vacations.html" style=" color: #000">
-                        <p id="city3"><b>3-Barselona</b></p>
+                        <p><b>3-Barselona</b></p>
                     </a>
                 </div>
-                <div class="col-md-4 text-center">
+                <div id="city4" class="col-md-4 text-center">
                     <a>
                         <img src="https://gezimanya.com/sites/default/files/foto-galeri/gorseller/kapak_30.jpg" style=" height: 150px; width: 150px;">
                     </a>
                     <a href="https://www.tripadvisor.com.tr/Tourism-g187147-Paris_Ile_de_France-Vacations.html" style=" color: #000">
-                        <p id="city4"><b>4-Berlin</b></p>
+                        <p><b>4-Berlin</b></p>
                     </a>
                 </div>
-                <div class="col-md-4 text-center">
+                <div id="city5" class="col-md-4 text-center">
                     <a>
                         <img src="http://www.celebialper.com/wp-content/uploads/prag.jpg" style=" height: 150px; width: 150px;">
                     </a>
                     <a href="https://www.tripadvisor.com.tr/Tourism-g187147-Paris_Ile_de_France-Vacations.html" style=" color: #000">
-                        <p id="city5"><b>5-Prag</b></p>
+                        <p><b>5-Prag</b></p>
                     </a>
                 </div>
-                <div class="col-md-4 text-center">
+                <div id="city6" class="col-md-4 text-center">
                     <a>
                         <img src="http://www.gezilecekyerler.biz/wp-content/uploads/2014/11/Lizbonda-Yap%C4%B1lacak-%C5%9Eeyler.jpg" style=" height: 150px; width: 150px;">
                     </a>
                     <a href="https://www.tripadvisor.com.tr/Tourism-g187147-Paris_Ile_de_France-Vacations.html" style=" color: #000">
-                        <p id="city6"><b>6-Lizbon</b></p>
+                        <p><b>6-Lizbon</b></p>
                     </a>
                 </div>
-                <div class="col-md-4 text-center">
+                <div id="city7" class="col-md-4 text-center">
                     <a>
                         <img src="http://journo.com.tr/wp-content/uploads/2016/05/Rome.jpg" style=" height: 150px; width: 150px;">
                     </a>
                     <a href="https://www.tripadvisor.com.tr/Tourism-g187147-Paris_Ile_de_France-Vacations.html" style=" color: #000">
-                        <p id="city7"><b>7-Roma</b></p>
+                        <p><b>7-Roma</b></p>
                     </a>
                 </div>
 
@@ -675,25 +675,29 @@
                 for(var i = 1; i < 8; i++){
                     if(cities[i - 1]){
                         var tempCity = document.getElementById("city" + i);
-                        tempCity.innerHTML = "<b>" + i + "-" + cities[i - 1] + "</b>";
+                        tempCity.innerHTML = '<a href="https://www.tripadvisor.com.tr/Tourism-g187147-Paris_Ile_de_France-Vacations.html"><img src="/img/city-photos/' + cities[i - 1] + '.jpg" ' + 'style=" height: 150px; width: 150px;"></a><a href="https://www.tripadvisor.com.tr/Tourism-g187147-Paris_Ile_de_France-Vacations.html" style=" color: #000"><p><b>' + i + '-' + cities[i - 1] + '</b></p></a>';
                         tempCity.style.display = 'block';
                     } else {
                         var tempCity = document.getElementById("city" + i);
-                        tempCity.parentNode.parentNode.style.display = 'none';
+                        tempCity.style.display = 'none';
                     }
                 }
+
+                $( "#ranked-results" ).append('<div class="col-md-12 text-center"><a href="/#cities" class="btn btn-xl" id="search-criteria-button" style="margin-top: 30px;">Try with different cities</a></div>' );
             }
         }
         http.send(JSON.stringify(params));
     }
 
     function controlMinActiveCitiesAndConsistency(selectedCities){
-        if (selectedCities.length < 2 && window.consistent == false){
-            alert('you should choose more than one city and your data is inconsistent');
-        } else if (selectedCities.length < 2){
-            alert('you should choose more than one city');
+        if (selectedCities.length < 3 && window.consistent == false){
+            alert('you should choose at least three city and your data should be consistent.\n
+                For example if  flight pricing is more important than city pricing & city pricing is more important than city rating, flight pricing should be more important than city rating. ');
+        } else if (selectedCities.length < 3){
+            alert('you should choose at least three city');
         } else if (window.consistent == false){
-            alert('your data is inconsistent');
+            alert('Your data is inconsistent.\n
+                For example if  flight pricing is more important than city pricing & city pricing is more important than city rating, flight pricing should be more important than city rating. ');
         } else {
             sendRequest(selectedCities);
         }
