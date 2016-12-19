@@ -627,6 +627,108 @@
     </div>
 </section>
 
+<!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+<div class="container">
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <!-- <h4 class="modal-title"></h4> -->
+          </div>
+          <div class="modal-body">
+            <p>You cannot select more than 7 cities!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+</div>
+
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal2">Open Modal</button>
+
+<div class="container">
+    <!-- Modal -->
+    <div id="myModal2" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <!-- <h4 class="modal-title"></h4> -->
+          </div>
+          <div class="modal-body">
+            <p>You should choose at least three city and your data should be consistent.<br>For example if  flight pricing is more important than city pricing & city pricing is more important than city rating, flight pricing should be more important than city rating. </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+</div>
+
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal3">Open Modal</button>
+
+<div class="container">
+    <!-- Modal -->
+    <div id="myModal3" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <!-- <h4 class="modal-title"></h4> -->
+          </div>
+          <div class="modal-body">
+            <p>You should choose at least three city</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+</div>
+
+
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal4">Open Modal</button>
+
+<div class="container">
+    <!-- Modal -->
+    <div id="myModal4" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <!-- <h4 class="modal-title"></h4> -->
+          </div>
+          <div class="modal-body">
+            <p>Your data should be consistent.<br>For example if  flight pricing is more important than city pricing & city pricing is more important than city rating, flight pricing should be more important than city rating. </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+</div>
+
 
 <script type="text/javascript">
     var cityButtons = document.getElementsByClassName('citybutton');
@@ -642,7 +744,8 @@
             var targetElement = event.target || event.srcElement;
             // console.log(targetElement.classList);
             targetElement.classList.remove("active");
-            alert('you cannot select more than 7 cities!');
+            //alert('you cannot select more than 7 cities!');
+            $('#myModal').modal('show');
         }
     }
 
@@ -691,11 +794,14 @@
 
     function controlMinActiveCitiesAndConsistency(selectedCities){
         if (selectedCities.length < 3 && window.consistent == false){
-            alert('you should choose at least three city and your data should be consistent.\nFor example if  flight pricing is more important than city pricing & city pricing is more important than city rating, flight pricing should be more important than city rating. ');
+            $('#myModal2').modal('show');
+            // alert('you should choose at least three city and your data should be consistent.\nFor example if  flight pricing is more important than city pricing & city pricing is more important than city rating, flight pricing should be more important than city rating. ');
         } else if (selectedCities.length < 3){
-            alert('you should choose at least three city');
+            $('#myModal3').modal('show');
+            // alert('you should choose at least three city');
         } else if (window.consistent == false){
-            alert('Your data is inconsistent.\nFor example if  flight pricing is more important than city pricing & city pricing is more important than city rating, flight pricing should be more important than city rating. ');
+            $('#myModal4').modal('show');
+            // alert('Your data is inconsistent.\nFor example if  flight pricing is more important than city pricing & city pricing is more important than city rating, flight pricing should be more important than city rating. ');
         } else {
             sendRequest(selectedCities);
         }
