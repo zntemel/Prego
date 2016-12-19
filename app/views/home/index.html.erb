@@ -691,13 +691,11 @@
 
     function controlMinActiveCitiesAndConsistency(selectedCities){
         if (selectedCities.length < 3 && window.consistent == false){
-            alert('you should choose at least three city and your data should be consistent.\n
-                For example if  flight pricing is more important than city pricing & city pricing is more important than city rating, flight pricing should be more important than city rating. ');
+            alert('you should choose at least three city and your data should be consistent.\nFor example if  flight pricing is more important than city pricing & city pricing is more important than city rating, flight pricing should be more important than city rating. ');
         } else if (selectedCities.length < 3){
             alert('you should choose at least three city');
         } else if (window.consistent == false){
-            alert('Your data is inconsistent.\n
-                For example if  flight pricing is more important than city pricing & city pricing is more important than city rating, flight pricing should be more important than city rating. ');
+            alert('Your data is inconsistent.\nFor example if  flight pricing is more important than city pricing & city pricing is more important than city rating, flight pricing should be more important than city rating. ');
         } else {
             sendRequest(selectedCities);
         }
@@ -1044,4 +1042,17 @@
             top: 100
         }
     })
+
+    $('a.page-scroll').bind('click', function(event) {
+        var $anchor = $(this);
+        $('html, body').stop().animate({
+            scrollTop: ($($anchor.attr('href')).offset().top - 50)
+        }, 1250, 'easeInOutExpo');
+        event.preventDefault();
+    });
+
+    $('body').scrollspy({
+        target: '.navbar-fixed-top',
+        offset: 51
+    });
     </script>
